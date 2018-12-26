@@ -97,11 +97,60 @@ if (pin==account[id].pin)
 banner();
 cout<<"Enter the sum you want to deposit:";
 cin>>sum;
-account[id].balance=sum;
+account[id].balance=account[id].balance+sum;
 }
 else wrongPIN();
 
 
+}
+
+void transfer()
+{
+int k,sum2;
+banner();
+auth(); 
+cin>>pin;
+if (pin==account[id].pin)
+{
+banner();
+cout<<"Please select a destination account ID:";
+cin>>k;
+cout<<"Enter the sum you want to transfer:";
+cin>>sum2;
+if (account[id].balance-sum2>0)
+{
+account[k].balance=account[k].balance+sum2;
+account[id].balance=account[id].balance-sum2;
+}
+
+else {cout<<"Insufficient funds!";usleep(500000);}
+
+}
+else wrongPIN();
+
+
+}
+
+
+void withdraw()
+{
+int sum2;
+banner();
+auth();
+cin>>pin;
+if (pin==account[id].pin)
+{
+banner();
+cout<<"Enter the sum you want to withdraw:";
+cin>>sum2;
+if(account[id].balance-sum2>0)
+{
+account[id].balance=account[id].balance-sum2;
+}
+else {cout<<"Insufficient funds!";usleep(500000);}
+}
+
+else wrongPIN();
 }
 
 
@@ -124,9 +173,9 @@ case 2 : details();
 break;
 case 3 : deposit();
 break;
-case 4 : cout<<n;
+case 4 : withdraw();
 break;
-case 5 : cout<<n;
+case 5 : transfer();
 break;
 case 6 : cout<<n;
 break;
