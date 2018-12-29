@@ -27,8 +27,7 @@ cout<<"2.Check account details"<<endl;
 cout<<"3.Deposit"<<endl;
 cout<<"4.Withdraw"<<endl;
 cout<<"5.Transfer"<<endl;
-cout<<"6.Delete an account"<<endl;
-cout<<"7.Exit"<<endl<<endl;
+cout<<"6.Exit"<<endl<<endl;
 cout<<"Choose an option:";
 }
 
@@ -177,9 +176,7 @@ case 4 : withdraw();
 break;
 case 5 : transfer();
 break;
-case 6 : cout<<n;
-break;
-case 7 : continuity=false;
+case 6 : continuity=false;
 break;
 }
 
