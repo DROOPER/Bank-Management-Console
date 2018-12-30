@@ -58,7 +58,7 @@ account[j].id=j;
 string str=to_string(j);
 ofstream output(str.c_str());
 output<<j<<endl;
-account[j].balance=0;
+account[j].balance=100;
 cout<<"Enter first name:";
 cin>>account[j].firstname;
 output<<account[j].firstname<<endl;
@@ -167,7 +167,7 @@ void savedaccountscheck()
 system("ls | sort -nr > asd.txt");
 ifstream v("asd.txt");
 v>>j;
-
+system("rm -rf asd.txt");
 }
 
 

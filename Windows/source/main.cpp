@@ -1,10 +1,12 @@
-
+#include <string>
 #include <iostream>
 #include <fstream>
+#include <ctype.h>
 #include <windows.h>
 #include <stdlib.h>
 using namespace std;
-int j=0,id,pin,sum;
+int j=1,id,pin,sum;
+
 struct accounts
 {
 int id;
@@ -17,8 +19,8 @@ int balance;
 
 void banner()
 {
-system("cls");
-cout<<"BANK MANAGEMENT SYSTEM (created by DROOPER)"<<endl<<endl;
+system("clear");	
+cout<<"BANK MANAGEMENT SYSTEM (created by DROOPER)"<<endl<<endl;	
 }
 
 void message()
@@ -31,6 +33,8 @@ cout<<"5.Transfer"<<endl;
 cout<<"6.Exit"<<endl<<endl;
 cout<<"Choose an option:";
 }
+
+
 
 void auth()
 {
@@ -45,24 +49,30 @@ void wrongPIN()
 {
 cout<<"WRONG PIN...RETURNING TO MAIN MENU";
 cout<<endl;
-Sleep(200);
+usleep(2000000);
 }
 
 void create()
 {
-banner();
+banner();	
 account[j].id=j;
-account[j].balance=0;
+string str=to_string(j);
+ofstream output(str.c_str());
+output<<j<<endl;
+account[j].balance=100;
 cout<<"Enter first name:";
 cin>>account[j].firstname;
+output<<account[j].firstname<<endl;
 cout<<"Enter last name:";
 cin>>account[j].lastname;
+output<<account[j].lastname<<endl;
 cout<<"Choose a PIN:";
 cin>>account[j].pin;
+output<<account[j].pin<<endl;
 cout<<endl;
 cout<<"Your account ID is ----> "<<j<<" <---- (Please note it somewhere)"<<endl;
 j++;
-Sleep(800);
+usleep(3000000);
 }
 
 
@@ -78,7 +88,7 @@ cout<<"Account ID: "<<account[id].id<<endl;
 cout<<"First name: "<<account[id].firstname<<endl;
 cout<<"Last name: "<<account[id].lastname<<endl;
 cout<<"Balance: "<<account[id].balance<<"$"<<endl;
-Sleep(800);
+usleep(9000000);
 }
 else wrongPIN();
 
@@ -88,7 +98,7 @@ else wrongPIN();
 
 void deposit()
 {
-
+	
 banner();
 auth();
 cin>>pin;
@@ -108,7 +118,7 @@ void transfer()
 {
 int k,sum2;
 banner();
-auth();
+auth(); 
 cin>>pin;
 if (pin==account[id].pin)
 {
@@ -123,7 +133,7 @@ account[k].balance=account[k].balance+sum2;
 account[id].balance=account[id].balance-sum2;
 }
 
-else {cout<<"Insufficient funds!";Sleep(850);}
+else {cout<<"Insufficient funds!";usleep(500000);}
 
 }
 else wrongPIN();
@@ -147,18 +157,40 @@ if(account[id].balance-sum2>0)
 {
 account[id].balance=account[id].balance-sum2;
 }
-else {cout<<"Insufficient funds!";Sleep(850);}
+else {cout<<"Insufficient funds!";usleep(500000);}
 }
 
 else wrongPIN();
 }
 
-
+void savedaccountscheck()
+{
+system("ls | sort -nr > asd.txt");
+ifstream v("asd.txt");
+v>>j;
+system("rm -rf asd.txt");
+}
 
 
 
 int main()
 {
+	savedaccountscheck();
+
+	for(int y=0;y<=j;y++)
+{
+
+string a=to_string(y);
+ifstream input(a.c_str());
+input>>account[y].id;
+input>>account[y].firstname;
+input>>account[y].lastname;
+input>>account[y].pin;
+input>>account[y].balance;
+
+
+}
+j++;
 bool continuity=true;
 while(continuity==1)
 {
@@ -167,7 +199,7 @@ int n;
 message();
 cin>>n;
 switch(n) {
-case 1 : create();
+case 1 : create(); 
 break;
 case 2 : details();
 break;
@@ -177,7 +209,10 @@ case 4 : withdraw();
 break;
 case 5 : transfer();
 break;
-case 6 : continuity=false;
+case 6 : 
+for(int y=0;y<j;y++)
+	{string yy=to_string(y);string accountbalance=to_string(account[y].balance);system(("echo " + accountbalance + ">>" + yy).c_str());}
+continuity=false;
 break;
 }
 
